@@ -1,3 +1,4 @@
+
 function setDateandTime() {
     let date = new Date();
 
@@ -23,12 +24,15 @@ function setDateandTime() {
 function getNumber() {
 
     let time = $('#timePicker').val();
-    
     let hours = parseInt(time.substring(0,2));
     let minutes = parseInt(time.substring(3));
 
     if(minutes >= 30){
         hours += 1;
+    }
+
+    if(hours > 0 && hours < 5){
+        hours = 0;
     }
 
     let date = new Date($('#datePicker').val())
@@ -40,7 +44,6 @@ function getNumber() {
         url: '/api/getCrowd',
         data: payload
     }).done(function(data){
-        console.log('here')
         $('#population').html(data.population);
     }).fail(function(jqXHR){
         console.log("ERROR contacting server!");
@@ -50,5 +53,5 @@ function getNumber() {
 $().ready( function() {
     setDateandTime();
     getNumber();
-    $('#refresh').live('click',function(){console.log('hello')});
+    $('#refresh').click(getNumber);
 })
