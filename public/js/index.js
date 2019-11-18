@@ -21,6 +21,7 @@ function setDateandTime() {
 }
 
 function getNumber() {
+
     let time = $('#timePicker').val();
     
     let hours = parseInt(time.substring(0,2));
@@ -32,16 +33,15 @@ function getNumber() {
 
     let date = new Date($('#datePicker').val())
 
-    let payload = {'day':date.getUTCDay(), 'time': hours};
-    console.log(payload)
+    let payload = {day:date.getUTCDay(), time: hours};
+
     $.ajax({
         type: 'GET',
-        contentType: 'application/json',
         url: '/api/getCrowd',
-        data: JSON.stringify(payload)
+        data: payload
     }).done(function(data){
-        console.log(data);
-        $('#population').html(data);
+        console.log('here')
+        $('#population').html(data.population);
     }).fail(function(jqXHR){
         console.log("ERROR contacting server!");
     })
@@ -50,4 +50,5 @@ function getNumber() {
 $().ready( function() {
     setDateandTime();
     getNumber();
+    $('#refresh').live('click',function(){console.log('hello')});
 })

@@ -1,9 +1,9 @@
 const Day = require('./dayModel.js');
 
 module.exports = {
-    getCrowd: function(req, res){
-        let d = req.body.day;
-        let t = req.body.time;
+    getCrowd: function(req, res){;
+        let d = req.query.day;
+        let t = req.query.time;
 
       Day.find({day:d}, function(err, days){
           if(err){
