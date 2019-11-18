@@ -1,0 +1,25 @@
+{
+  "name": "realtimerec",
+  "version": "1.0.0",
+  "description": "An application, which tracks the number of people in the Rec Center, so that users are able to make a more informed decision on whether they should go now or later.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NathanScheele/RealTimeRec.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NathanScheele/RealTimeRec/issues"
+  },
+  "homepage": "https://github.com/NathanScheele/RealTimeRec#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.11",
+    "nodemon": "^1.19.4"
+  }
+}
