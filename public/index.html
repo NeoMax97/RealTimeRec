@@ -20,6 +20,37 @@
     <br>
     <label for="population">Number of people at the Rec Center:</label>
     <label id="population"></label>
-    
+
+    <br />
+    <br />
+
+    <!-- ******** Check In Section ********-->
+
+    <label id="check_in">Check In: </label>
+    <br />
+    <br />
+    <label id="party_size">Party Size</label>
+    <div id="div_party_size">
+      <!-- This part is filled out by popPartySize in index.js -->
+    </div>
+    <br />
+    <!-- This div contains checkboxes for users to pick a location -->
+    <label>Location(s):</label>
+    <input type="checkbox" id="cb_Courts" onclick="showSports(this.id)">Courts</input>
+    <input type="checkbox" id="cb_Track">Jogging/Walking Track</input>
+    <input type="checkbox" id="cb_fitness">Fitness & Weights</input>
+    <br />
+
+    <!--This div is hidden by default.
+        Will be visible if user selects Courts above. -->
+    <div id="div_courts" style="display: none">
+      <label>Sport(s): </label>
+      <input type="checkbox" id="cb_Courts_bball">Basketball</input>
+      <input type="checkbox" id="cb_Courts_badminton">Badminton</input>
+      <input type="checkbox" id="cb_Courts_volley">Volleyball</input>
+    </div>
+
+
+
 </body>
 </html>
