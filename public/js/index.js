@@ -10,7 +10,7 @@ function setDateandTime() {
     let min  = date.getMinutes();
 
     //Formatting to appease the date input and time input standards
-    month = (month < 10 ? "0" : "") + month;
+    month = (month < 10 ? "0" : "") + month;    
     day = (day < 10 ? "0" : "") + day;
     hour = (hour < 10 ? "0" : "") + hour;
     min = (min < 10 ? "0" : "") + min;
@@ -19,7 +19,7 @@ function setDateandTime() {
     let displayTime = hour + ":" + min;
 
     //Updating the HTML
-    $('#datePicker').val(today);
+    $('#datePicker').val(today);      
     $('#timePicker').val(displayTime);
 }
 
@@ -33,6 +33,7 @@ function getNumber() {
     if(minutes >= 30){
         hours += 1;
     }
+
     //Since there is no data from 1am to 4am, default to the latest available time (00:00)
     if(hours > 0 && hours < 5){
         hours = 0;
@@ -49,6 +50,7 @@ function getNumber() {
         url: '/api/getCrowd',
         data: payload
     }).done(function(data){
+        //Update the HTML
         $('#population').html(data.population);
     }).fail(function(jqXHR){
         console.log("ERROR contacting server!");
@@ -105,7 +107,7 @@ $().ready( function() {
     setDateandTime();
     getNumber();
     popPartySize();
-    
+  
     //Add event listeners
     $('#refresh').click(getNumber);
 })
