@@ -17,6 +17,7 @@ function setDateandTime() {
     let today = year + "-" + month + "-" + day;
     let displayTime = hour + ":" + min;
 
+    //Updating the HTML
     $('#datePicker').val(today);
     $('#timePicker').val(displayTime);
 }
@@ -94,9 +95,12 @@ function showSports(elem){
   }
 }
 
+//Once the DOM is loaded
 $().ready( function() {
     setDateandTime();
     getNumber();
     popPartySize();
+    
+    //Add event listeners
     $('#refresh').click(getNumber);
 })
