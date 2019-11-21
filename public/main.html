@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <title>RealTimeRec</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/main.js"></script>
+    <!-- MaterialCSS -->
+    <!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- RadialIndicator.js -->
+    <script src="js/libs/radialIndicator.js"></script>
+</head>
+
+<body style="width: 100%; height: 100%;">
+
+  <!-- Title Bar -->
+  <nav>
+    <div class="nav-wrapper red darken-4">
+      <a href="#" class="brand-logo left">Logo</a>
+      <ul id="nav-mobile" class="right">
+        <li><a href="#"><i class="material-icons">info_outline</i></a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Card displaying Crowd Level -->
+  <div class="row">
+    <div class="col s12 m6">
+      <div class="card white">
+        <div class="card-content black-text">
+          <span class="card-title center">Crowd Level</span>
+          <div id="crowd_indicator" class="center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Tabs -->
+  <div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a href="#tab1"  class="active">Crowd</a></li>
+        <li class="tab col s3"><a href="#tab2">Check In</a></li>
+      </ul>
+    </div>
+    <!-- Content for Crowd tab -->
+    <div id="tab1" class="col s12">
+      <div class="row">
+        <div class="col s12 m6">
+          <div class="card white">
+            <div class="card-content black-text">
+                <input type="text" class="datepicker">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Content for Check In tab -->
+    <div id="tab2" class="col s12">
+    </div>
+
+  </div>
+
+</body>
