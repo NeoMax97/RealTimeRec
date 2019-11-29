@@ -87,6 +87,48 @@ function initializeSlider(){
  });
 }
 
+function selectCard(id){
+  var card = document.getElementById(id);
+  if (card.classList.contains("blue-grey")){
+    card.classList.remove("blue-grey");
+    card.classList.remove("lighten-5");
+    card.classList.add("red");
+    card.classList.add("lighten-4");
+  }else{
+    card.classList.remove("red");
+    card.classList.remove("lighten-4");
+    card.classList.add("blue-grey");
+    card.classList.add("lighten-5");
+  }
+}
+
+function check_in(){
+  var courts_card = document.getElementById("courts_card");
+  var track_card = document.getElementById("track_card");
+  var gym_card = document.getElementById("gym_card");
+  var party_size = document.getElementById("party_slider_value");
+
+  var courts_val = parseInt($("#courts_val").text().split(" ")[0]);
+  var track_val = parseInt($("#track_val").text().split(" ")[0]);
+  var gym_val = parseInt($("#gym_val").text().split(" ")[0]);
+  var party_size = parseInt($("#party_slider_value").text());
+
+  if (courts_card.classList.contains("red")){
+    courts_val += party_size;
+  }
+  if (track_card.classList.contains("red")){
+    track_val += party_size;
+  }
+  if (gym_card.classList.contains("red")){
+    gym_val += party_size;
+  }
+
+  console.log("Courts: ", courts_val);
+  console.log("Track: ", track_val);
+  console.log("Gym: ", gym_val);
+
+}
+
 //Once the DOM is loaded
 $().ready( function() {
     //Run these functions
@@ -98,4 +140,5 @@ $().ready( function() {
 
     //Add event listeners
     $("#refresh").click(updateIndicator);
+    $("#submit").click(check_in);
 })

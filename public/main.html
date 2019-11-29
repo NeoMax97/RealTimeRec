@@ -91,25 +91,25 @@
               <div class="row">
                 <!-- Courts -->
                 <div class="col s4">
-                  <div class="card blue-grey lighten-5">
+                  <div id="courts_card" class="card blue-grey lighten-5" onclick="selectCard(this.id)">
                     <span class="card-title center" style="font-size: 1.25em">Courts</span>
-                    <p class="center-align">10 people</p>
+                    <p id="courts_val" class="center-align">10 people</p>
                   </div>
                 </div>
                 <!-- Walking/Jogging Track -->
                 <div class="col s4">
-                  <div class="card blue-grey lighten-5">
+                  <div id="track_card" class="card blue-grey lighten-5" onclick="selectCard(this.id)">
                     <span class="card-title center" style="font-size: 1.25em">Track</span>
-                    <p class="center-align">10 people</p>
+                    <p id="track_val" class="center-align">10 people</p>
                     <p class="center" id="courts_crowd"></p>
                   </div>
                 </div>
 
                 <!-- Fitness and Weights -->
                 <div class="col s4">
-                  <div class="card blue-grey lighten-5">
+                  <div id="gym_card" class="card blue-grey lighten-5" onclick="selectCard(this.id)">
                     <span class="card-title center" style="font-size: 1.25em">Gym</span>
-                    <p class="center-align">10 people</p>
+                    <p id="gym_val" class="center-align">10 people</p>
                     <p class="center" id="courts_crowd"></p>
                   </div>
                 </div>
@@ -133,7 +133,7 @@
 
                     </div>  <!-- card blue-grey lighten -5 -->
                     <div class="center">
-                      <a href="#"><i class="material-icons">check</i></a>
+                      <a href="#" id="submit"><i class="material-icons">check</i></a>
                     </div>
                   </div>  <!-- col s12-->
                 </div>  <!-- row -->
