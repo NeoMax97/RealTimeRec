@@ -15,6 +15,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- RadialIndicator.js -->
     <script src="js/libs/radialIndicator.js"></script>
+    <!-- noUISlider (Materialize version) -->
+    <!-- JS -->
+    <script src="js/libs/nouislider.js"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/libs/nouislider.css" />
 </head>
 
 <body style="width: 100%; height: 100%;">
@@ -31,38 +36,114 @@
 
   <!-- Card displaying Crowd Level -->
   <div class="row">
-    <div class="col s12 m6">
+    <div class="col s12">
       <div class="card white">
-        <div class="card-content black-text">
-          <span class="card-title center">Crowd Level</span>
+        <div id="crowd_indicator_container" class="card-content black-text">
+          <span class="card-title center" style="margin: 0; padding: 0%;">Crowd Level</span>
           <div id="crowd_indicator" class="center"></div>
         </div>
       </div>
     </div>
   </div>
 
+  <div class="divider"></div>
+
   <!-- Bottom Tabs -->
   <div class="row">
     <div class="col s12">
       <ul class="tabs">
-        <li class="tab col s3"><a href="#tab1"  class="active">Crowd</a></li>
-        <li class="tab col s3"><a href="#tab2">Check In</a></li>
+        <li class="tab col s6"><a href="#tab1" >Crowd</a></li>
+        <li class="tab col s6"><a href="#tab2" class="active">Check In</a></li>
       </ul>
     </div>
     <!-- Content for Crowd tab -->
     <div id="tab1" class="col s12">
       <div class="row">
-        <div class="col s12 m6">
+        <div class="col s12">
           <div class="card white">
             <div class="card-content black-text">
-                <input type="text" class="datepicker">
+              <div>
+                <!-- Date -->
+                <input id="date_picker" type="text" class="datepicker" style="width: 40%">
+                <!-- Time -->
+                <input id="time_picker" type="text" class="timepicker right" style="width: 40%" placeholder="Time">
+              </div>
+              <div class="center">
+                <!-- Update -->
+                <a href="#" id="refresh"><i class="medium material-icons">update</i></a>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <!-- Content for Check In tab -->
     <div id="tab2" class="col s12">
+      <div class="row">
+        <div class="col s12">
+          <div class="card white">
+            <div class="card-content black-text" style="padding-top: 1%; padding-bottom: 1%">
+              <!-- Location -->
+              <span class="card-title center" style="font-size: 1.5em; margin: 0; padding: 0%;">Location</span>
+              <!-- Location Content -->
+              <div class="row">
+                <!-- Courts -->
+                <div class="col s4">
+                  <div class="card blue-grey lighten-5">
+                    <span class="card-title center" style="font-size: 1.25em">Courts</span>
+                    <p class="center-align">10 people</p>
+                  </div>
+                </div>
+                <!-- Walking/Jogging Track -->
+                <div class="col s4">
+                  <div class="card blue-grey lighten-5">
+                    <span class="card-title center" style="font-size: 1.25em">Track</span>
+                    <p class="center-align">10 people</p>
+                    <p class="center" id="courts_crowd"></p>
+                  </div>
+                </div>
+
+                <!-- Fitness and Weights -->
+                <div class="col s4">
+                  <div class="card blue-grey lighten-5">
+                    <span class="card-title center" style="font-size: 1.25em">Gym</span>
+                    <p class="center-align">10 people</p>
+                    <p class="center" id="courts_crowd"></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Party Size -->
+              <span class="card-title center" style="font-size: 1.5em; margin: 0; padding: 0%;">Party Size</span>
+              <!-- Party Size Content -->
+              <div class="row">
+                <!-- Slider Stuff -->
+                <div class="col s12">
+                  <div class="card blue-grey lighten-5">
+                    <br/>
+                    <!-- Slider -->
+                    <div class="col s12">
+                      <div id="party_slider"></div> <!-- class changed slider settings -->
+                    </div>
+                      <br />
+                      <p id="party_slider_value" class="center">
+                      </p>
+
+                    </div>  <!-- card blue-grey lighten -5 -->
+                    <div class="center">
+                      <a href="#"><i class="material-icons">check</i></a>
+                    </div>
+                  </div>  <!-- col s12-->
+                </div>  <!-- row -->
+
+              </div>  <!-- card-content black-text -->
+
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
