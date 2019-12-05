@@ -45,7 +45,9 @@ function updateIndicator(){
 }
 
 function initializeTabs(){
+  document.getElementById("tab3").style.display = "none";
   $(".tabs").tabs();
+
 }
 
 function initializePickers(){
@@ -102,7 +104,7 @@ function selectCard(id){
   }
 }
 
-function check_in(){
+function check_in(id){
   var courts_card = document.getElementById("courts_card");
   var track_card = document.getElementById("track_card");
   var gym_card = document.getElementById("gym_card");
@@ -127,6 +129,33 @@ function check_in(){
   console.log("Track: ", track_val);
   console.log("Gym: ", gym_val);
 
+  checkin_checkout(id);
+
+}
+
+function checkin_checkout(id){
+  if (id == "submit"){
+    document.getElementById("tab2").style.display = "none";
+    document.getElementById("tab3").style.display = "inline";
+  }
+  else if (id == "checkout_man_card"){
+    document.getElementById("tab2").style.display = "inline";
+    document.getElementById("tab3").style.display = "none";
+  }
+}
+
+function check_out_setup(){
+  for (var i = 1; i < 5; i++){
+    if (i == 1){
+      optionText = i + " hour";
+      $("#check_out_dropdown").append(new Option(optionText, i));
+    }else{
+      optionText = i + " hours";
+      $("#check_out_dropdown").append(new Option(optionText, i));
+    }
+  }
+  $("#check_out_dropdown").formSelect();
+  // document.getElementById("tab3").style.display = "none";
 }
 
 //Once the DOM is loaded
@@ -137,8 +166,10 @@ $().ready( function() {
     initializePickers();
     initializeSlider();
     updateIndicator();
+    // check_out_setup();
 
     //Add event listeners
     $("#refresh").click(updateIndicator);
-    $("#submit").click(check_in);
+
+
 })
