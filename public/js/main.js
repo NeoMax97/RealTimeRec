@@ -45,9 +45,9 @@ function updateIndicator(){
 }
 
 function initializeTabs(){
-  document.getElementById("tab3").style.display = "none";
   $(".tabs").tabs();
-
+  // document.getElementById("checkout_content").style.display = "none";
+  document.getElementById("checkout_content").classList.add("hide");
 }
 
 function initializePickers(){
@@ -117,12 +117,21 @@ function check_in(id){
 
   if (courts_card.classList.contains("red")){
     courts_val += party_size;
+    // Update value in db
+    // Reset to White
+    selectCard("courts_card");
   }
   if (track_card.classList.contains("red")){
     track_val += party_size;
+    // Update value in db
+    // Reset to White
+    selectCard("track_card");
   }
   if (gym_card.classList.contains("red")){
     gym_val += party_size;
+    // Update value in db
+    // Reset to White
+    selectCard("gym_card");
   }
 
   console.log("Courts: ", courts_val);
@@ -135,12 +144,16 @@ function check_in(id){
 
 function checkin_checkout(id){
   if (id == "submit"){
-    document.getElementById("tab2").style.display = "none";
-    document.getElementById("tab3").style.display = "inline";
+    // document.getElementById("checkin_content").style.display = "none";
+    // document.getElementById("checkout_content").style.display = "inline";
+    document.getElementById("checkin_content").classList.add("hide");
+    document.getElementById("checkout_content").classList.remove("hide");
   }
   else if (id == "checkout_man_card"){
-    document.getElementById("tab2").style.display = "inline";
-    document.getElementById("tab3").style.display = "none";
+    // document.getElementById("checkin_content").style.display = "inline";
+    // document.getElementById("checkout_content").style.display = "none";
+    document.getElementById("checkin_content").classList.remove("hide");
+    document.getElementById("checkout_content").classList.add("hide");
   }
 }
 
@@ -166,7 +179,7 @@ $().ready( function() {
     initializePickers();
     initializeSlider();
     updateIndicator();
-    // check_out_setup();
+    check_out_setup();
 
     //Add event listeners
     $("#refresh").click(updateIndicator);
