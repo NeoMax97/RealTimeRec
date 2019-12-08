@@ -154,10 +154,13 @@ function checkin_checkout(id){
     // document.getElementById("checkout_content").style.display = "none";
     document.getElementById("checkin_content").classList.remove("hide");
     document.getElementById("checkout_content").classList.add("hide");
+    document.getElementById("checkout_auto").classList.remove("hide");
+    document.getElementById("checkout_timer").classList.add("hide");
   }
 }
 
 function check_out_setup(){
+  document.getElementById("checkout_timer").classList.add("hide");
   for (var i = 1; i < 5; i++){
     if (i == 1){
       optionText = i + " hour";
@@ -171,6 +174,15 @@ function check_out_setup(){
   // document.getElementById("tab3").style.display = "none";
 }
 
+function checkout_timer(){
+  var duration = parseInt(document.getElementById("check_out_dropdown").value.split(" ")[0]);
+  document.getElementById("checkout_auto").classList.add("hide");
+  document.getElementById("checkout_timer").classList.remove("hide");
+  var curr_time = new Date()
+  var checkout_text = ((curr_time.getHours() + duration) % 24).toString() + ":" + curr_time.getMinutes().toString();
+  document.getElementById("checkout_timer_text").innerText = checkout_text;
+}
+
 //Once the DOM is loaded
 $().ready( function() {
     //Run these functions
@@ -180,7 +192,6 @@ $().ready( function() {
     initializeSlider();
     updateIndicator();
     check_out_setup();
-
     //Add event listeners
     $("#refresh").click(updateIndicator);
 

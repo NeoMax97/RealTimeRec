@@ -153,12 +153,21 @@
               <!-- Checkout Content -->
               <div class="row">
                 <!-- Checkout Auto-->
-                <div class="col s5">
-                  <div id="checkout_auto_card" class="card blue-grey lighten-5" onclick="selectCard(this.id)">
+                <div id="checkout_auto" class="col s5">
+                  <div id="checkout_auto_card" class="card blue-grey lighten-5" onclick="checkout_timer()">
                     <span class="card-title center" style="font-size: 1.25em">Check Out </span>
                     <p class="center-align">in</p>
                   </div>
                   <select id="check_out_dropdown" class="center-align"></select>
+                </div>
+
+                <!-- Checkout Timer-->
+                <div id="checkout_timer" class="col s5">
+                  <div id="checkout_timer_card" class="card red lighten-4 center">
+                    <span class="card-title center" style="font-size: 1.25em">Auto Check Out</span>
+                    <p class="center-align">at</p>
+                    <p id="checkout_timer_text"></p>
+                  </div>
                 </div>
                 <!-- Or -->
                 <div class="col s2">
