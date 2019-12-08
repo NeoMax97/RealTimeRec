@@ -51,13 +51,33 @@ function initializeTabs(){
 }
 
 function initializePickers(){
-  $('.datepicker').datepicker();
   var date = new Date();
+  $('.datepicker').datepicker({
+    showClearBtn: true,
+    format: "ddd mmm dd yyyy",
+    onClose: function(){
+      if ($("#date_picker").val() == ""){
+        date = new Date();
+        $("#date_picker").val(date.toDateString());
+      }
+    }
+  });
+
   $('.datepicker').attr("placeholder", date.toDateString());
   $("#date_picker").val(date.toDateString());
-  $('.timepicker').timepicker();
-  $('.timepicker').attr("placeholder", date.toLocaleTimeString());
-  $("#time_picker").val(date.toLocaleTimeString());
+  $('.timepicker').timepicker({
+    showClearBtn: true,
+    onCloseStart: function(){
+      if ($("#time_picker").val() == ""){
+        date = new Date();
+        $("#time_picker").val(((date.getHours() % 12)+":"+date.getMinutes()+" "+(date.getHours() > 12 ? "PM":"AM")));
+      }
+
+    }
+  });
+  $('.timepicker').attr("placeholder", (((date.getHours() % 12)+":"+date.getMinutes()+" "+(date.getHours() > 12 ? "PM":"AM"))));
+  $("#time_picker").val(((date.getHours() % 12)+":"+date.getMinutes()+" "+(date.getHours() > 12 ? "PM":"AM")));
+
 }
 
 function initializeSlider(){
