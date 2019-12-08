@@ -16,7 +16,6 @@ module.exports = {
             });
             pop /= days.length;
             pop = Math.round(pop);
-
             res.status(200).json({population: pop});
           }
       })
