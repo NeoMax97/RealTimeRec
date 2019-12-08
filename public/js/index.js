@@ -1,4 +1,6 @@
 var crowdInd;
+var checkout_time;
+var checkout_func;
 
 function showIndicator(){
   var crowdIndicator = radialIndicator("#crowd_indicator", {
@@ -175,12 +177,13 @@ function checkin_checkout(id){
     document.getElementById("checkin_content").classList.remove("hide");
     document.getElementById("checkout_content").classList.add("hide");
     document.getElementById("checkout_auto").classList.remove("hide");
-    document.getElementById("checkout_timer").classList.add("hide");
+    document.getElementById("checkout_timer_container").classList.add("hide");
+    clearInterval(checkout_func);
   }
 }
 
 function check_out_setup(){
-  document.getElementById("checkout_timer").classList.add("hide");
+  document.getElementById("checkout_timer_container").classList.add("hide");
   for (var i = 1; i < 5; i++){
     if (i == 1){
       optionText = i + " hour";
@@ -197,10 +200,25 @@ function check_out_setup(){
 function checkout_timer(){
   var duration = parseInt(document.getElementById("check_out_dropdown").value.split(" ")[0]);
   document.getElementById("checkout_auto").classList.add("hide");
-  document.getElementById("checkout_timer").classList.remove("hide");
-  var curr_time = new Date()
-  var checkout_text = ((curr_time.getHours() + duration) % 24).toString() + ":" + curr_time.getMinutes().toString();
-  document.getElementById("checkout_timer_text").innerText = checkout_text;
+  document.getElementById("checkout_timer_container").classList.remove("hide");
+  // var curr_time = new Date();
+  // var checkout_text = ((curr_time.getHours() + duration) % 24).toString() + ":" + curr_time.getMinutes().toString();
+  checkout_time = duration * 60;
+  update_timer(checkout_time);
+  checkout_func = setInterval(update_timer, 60000);
+
+}
+
+function update_timer(){
+  mins = checkout_time;
+  if (mins > 0){
+    var checkout_text = (Math.floor(mins/60)) + ":" + ((mins % 60) < 10 ? ("0" + (mins % 60)) : (mins % 60)); // (mins % 60);
+    // date.getHours() > 12 ? "PM":"AM"
+    document.getElementById("checkout_timer_text").innerText = checkout_text;
+    checkout_time -= 1;
+  }else{
+    clearInterval(checkout_func);
+  }
 }
 
 //Once the DOM is loaded

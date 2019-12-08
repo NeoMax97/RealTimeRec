@@ -153,7 +153,7 @@
               <!-- Checkout Content -->
               <div class="row">
                 <!-- Checkout Auto-->
-                <div id="checkout_auto" class="col s5">
+                <div id="checkout_auto" class="col s12 center-align">
                   <div id="checkout_auto_card" class="card blue-grey lighten-5" onclick="checkout_timer()">
                     <span class="card-title center" style="font-size: 1.25em">Check Out </span>
                     <p class="center-align">in</p>
@@ -161,28 +161,35 @@
                   <select id="check_out_dropdown" class="center-align"></select>
                 </div>
 
-                <!-- Checkout Timer-->
-                <div id="checkout_timer" class="col s5">
-                  <div id="checkout_timer_card" class="card red lighten-4 center">
-                    <span class="card-title center" style="font-size: 1.25em">Auto Check Out</span>
-                    <p class="center-align">at</p>
-                    <p id="checkout_timer_text"></p>
+                <div id="checkout_timer_container" class="col s12">
+
+                  <!-- Checkout Timer-->
+                  <div id="checkout_timer" class="col s5">
+                    <div id="checkout_timer_card" class="card red lighten-4 center">
+                      <span class="card-title center" style="font-size: 1.25em">Auto Check Out</span>
+                      <p class="center-align">in</p>
+                      <p id="checkout_timer_text"></p>
+                    </div>
                   </div>
-                </div>
-                <!-- Or -->
-                <div class="col s2">
-                  <div id="checkout_auto_card" class="card white z-depth-0">
-                    <p class="card-title center" style="font-size: 1.25em">or</p>
-                    <br />
+
+                  <!-- Or -->
+                  <div class="col s2">
+                    <div id="checkout_auto_card" class="card white z-depth-0">
+                      <p class="card-title center" style="font-size: 1.25em">or</p>
+                      <br />
+                    </div>
                   </div>
-                </div>
-                <!-- Checkout Manual -->
-                <div class="col s5 right">
-                  <div id="checkout_man_card" class="card blue-grey lighten-5" onclick="checkin_checkout(this.id)">
-                    <span class="card-title center" style="font-size: 1.25em">Check Out</span>
-                    <p class="center-align">Now</p>
+                  <!-- Checkout Manual -->
+                  <div class="col s5 right">
+                    <div id="checkout_man_card" class="card blue-grey lighten-5" onclick="checkin_checkout(this.id)">
+                      <span class="card-title center" style="font-size: 1.25em">Check Out</span>
+                      <p class="center-align">Now</p>
+                    </div>
                   </div>
-                </div>
+
+                </div> <!-- End of checkout_timer_container -->
+
+
 
               </div> <!-- row -->
 
