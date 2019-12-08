@@ -1,25 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <!-- Required meta tags -->
-    <meta charset="UTF-8">
-    <title>RealTimeRec</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="js/index.js"></script>
-    <!-- MaterialCSS -->
-    <!-- Compiled and minified CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!-- icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- RadialIndicator.js -->
-    <script src="js/libs/radialIndicator.js"></script>
-    <!-- noUISlider (Materialize version) -->
-    <!-- JS -->
-    <script src="js/libs/nouislider.js"></script>
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/libs/nouislider.css" />
+  <!-- Required meta tags -->
+  <meta charset="UTF-8">
+  <title>RealTimeRec</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="js/index.js"></script>
+  <!-- MaterialCSS -->
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- RadialIndicator.js -->
+  <script src="js/libs/radialIndicator.js"></script>
+  <!-- noUISlider (Materialize version) -->
+  <!-- JS -->
+  <script src="js/libs/nouislider.js"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/libs/nouislider.css" />
 </head>
 
 <body style="width: 100%; height: 100%; overflow: hidden">
@@ -51,8 +52,8 @@
   <!-- Bottom Tabs -->
   <div class="row">
     <div class="col s12">
-      <ul class="tabs" >
-        <li class="tab col s6"><a href="#tab1" >Crowd</a></li>
+      <ul class="tabs">
+        <li class="tab col s6"><a href="#tab1">Crowd</a></li>
         <li class="tab col s6"><a href="#tab2" class="active">Check In/Out</a></li>
       </ul>
     </div>
@@ -66,7 +67,8 @@
                 <!-- Date -->
                 <input id="date_picker" type="text" class="datepicker col s5" style="width: 40%">
                 <!-- Time -->
-                <input id="time_picker" type="text" class="timepicker right col s5" style="width: 40%" placeholder="Time">
+                <input id="time_picker" type="text" class="timepicker right col s5" style="width: 40%"
+                  placeholder="Time">
               </div>
               <div class="center">
                 <!-- Update -->
@@ -84,7 +86,8 @@
       <div class="row">
         <div class="col s12">
 
-          <div id="checkin_content" class="card white"> <!-- Check In -->
+          <div id="checkin_content" class="card white">
+            <!-- Check In -->
             <div class="card-content black-text" style="padding-top: 1%; padding-bottom: 1%">
               <!-- Location -->
               <span class="card-title center" style="font-size: 1.5em; margin: 0; padding: 0%;">Location</span>
@@ -123,32 +126,52 @@
                 <!-- Slider Stuff -->
                 <div class="col s12">
                   <div class="card blue-grey lighten-5">
-                    <br/>
+                    <br />
                     <!-- Slider -->
                     <div class="col s12">
                       <div id="party_slider"></div> <!-- class changed slider settings -->
                     </div>
-                      <br />
-                      <p id="party_slider_value" class="center">
-                      </p>
+                    <br />
+                    <p id="party_slider_value" class="center">
+                    </p>
 
-                    </div>  <!-- card blue-grey lighten -5 -->
-                    <div class="center">
-                      <a id="submit" onclick="check_in(this.id)"><i class="material-icons">check</i></a>
+                  </div> <!-- card blue-grey lighten -5 -->
+                </div> <!-- col s12-->
+
+              </div> <!-- card-content black-text -->
+              <!-- Duration -->
+              <span class="card-title center" style="font-size: 1.5em; margin: 0; padding: 0%;">Duration of Visit</span>
+              <!-- Duration Content -->
+              <div class="row">
+                <!-- Slider Stuff -->
+                <div class="col s12">
+                  <div class="card blue-grey lighten-5">
+                    <br />
+                    <!-- Slider -->
+                    <div class="col s12">
+                      <div id="duration_slider"></div> <!-- class changed slider settings -->
                     </div>
-                  </div>  <!-- col s12-->
-                </div>  <!-- row -->
+                    <br />
+                    <p id="duration_slider_value" class="center">
+                    </p>
 
-              </div>  <!-- card-content black-text -->
-
-            </div> <!-- Check In Content End -->
+                  </div> <!-- card blue-grey lighten -5 -->
+                  <div class="center">
+                    <a id="submit" onclick="check_in(this.id)"><i class="material-icons">check</i></a>
+                  </div>
+                </div> <!-- col s12-->
+              </div> <!-- row -->
+            </div> <!-- card-content black-text -->
+          </div> <!-- Check In Content End -->
 
           <div id="checkout_content" class="card white">
             <div class="card-content black-text" style="padding-top: 1%; padding-bottom: 1%">
               <!-- Checkout  -->
-              <span class="card-title center" style="font-size: 1.5em; margin: 0; padding: 0%;">You Have Checked In!</span>
+              <span class="card-title center" style="font-size: 1.5em; margin: 0; padding: 0%;">You Have Checked
+                In!</span>
 
-              <span class="card-title center" style="font-size: 1.5em; margin: 0; padding: 0%;">Please do not close this page before checking out</span>
+              <span id="durationTimer" class="card-title center"
+                style="font-size: 1.5em; margin: 0; padding: 0%;"></span>
               <br />
               <!-- Checkout Content -->
               <div class="row">
@@ -162,25 +185,8 @@
                 </div>
 
                 <div id="checkout_timer_container" class="col s12">
-
-                  <!-- Checkout Timer-->
-                  <div id="checkout_timer" class="col s5">
-                    <div id="checkout_timer_card" class="card red lighten-4 center">
-                      <span class="card-title center" style="font-size: 1.25em">Auto Check Out</span>
-                      <p class="center-align">in</p>
-                      <p id="checkout_timer_text"></p>
-                    </div>
-                  </div>
-
-                  <!-- Or -->
-                  <div class="col s2">
-                    <div id="checkout_auto_card" class="card white z-depth-0">
-                      <p class="card-title center" style="font-size: 1.25em">or</p>
-                      <br />
-                    </div>
-                  </div>
                   <!-- Checkout Manual -->
-                  <div class="col s5 right">
+                  <div class="col s5 center-align">
                     <div id="checkout_man_card" class="card blue-grey lighten-5" onclick="checkin_checkout(this.id)">
                       <span class="card-title center" style="font-size: 1.25em">Check Out</span>
                       <p class="center-align">Now</p>
@@ -193,8 +199,9 @@
 
               </div> <!-- row -->
 
-            </div>  <!-- card-content black-text -->
-          </div>  <!-- card white --> <!-- Check Out Content End -->
+            </div> <!-- card-content black-text -->
+          </div> <!-- card white -->
+          <!-- Check Out Content End -->
         </div>
       </div>
     </div>
