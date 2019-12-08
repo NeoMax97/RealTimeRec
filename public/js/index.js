@@ -236,6 +236,4 @@ $().ready(function () {
   updateAreaCards();
   //Add event listeners
   $("#refresh").click(updateIndicator);
-
-
 })
