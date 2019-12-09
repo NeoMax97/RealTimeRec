@@ -274,7 +274,7 @@ function update_timer(){
   if (mins > 0){
     var checkout_text = (Math.floor(mins/60)) + ":" + ((mins % 60) < 10 ? ("0" + (mins % 60)) : (mins % 60)); // (mins % 60);
     // date.getHours() > 12 ? "PM":"AM"
-    $('#durationTimer').html(`You will be automatically signed out in ${checkout_text}`);
+    $('#durationTimer').html(`You will be automatically signed out in <br> ${checkout_text} hour(s)`);
     checkout_time -= 1;
   }else{
     clearInterval(checkout_func);
@@ -316,6 +316,17 @@ function confirm_location(){
   }
 }
 
+function setup_feature_discovery_points(){
+  // tutorial.classList.add("tap-target");
+
+  $(".tooltipped").tooltip();
+}
+
+function showFD(id){
+  var instance = M.TapTarget.getInstance($(id)).open();
+  // var instance = M.TapTarget.getInstance(document.getElementById(id)).open();
+}
+
 //Once the DOM is loaded
 $().ready(function () {
   //Run these functions
@@ -325,6 +336,9 @@ $().ready(function () {
   initializeSliders();
   updateIndicator();
   updateAreaCards();
+
+  setup_feature_discovery_points();
+
   //Add event listeners
   $("#refresh").click(updateIndicator);
 })

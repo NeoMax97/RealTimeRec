@@ -31,7 +31,7 @@
       <div class="col s2"><img src="assets/logo_simple.png" class="brand-logo left" height="100%"></div>
       <span class="col s8 center nav-title">RealTimeRec</span>
       <ul id="nav-mobile" class="right">
-        <li><a href="#"><i class="material-icons col s2">info_outline</i></a></li>
+        <!-- <li><a id="tut" ><i class="material-icons col s2">info_outline</i></a></li> -->
       </ul>
     </div>
   </nav>
@@ -40,6 +40,12 @@
   <div class="row">
     <div class="col s12">
       <div class="card white">
+          <div class="col s1 right tooltipped" data-position="left" data-tooltip="This section shows you the Crowd Level at the Rec Center">
+            <a>
+              <i class="material-icons col s1 right">info_outline</i>
+            </a>
+          </div>
+
         <div id="crowd_indicator_container" class="card-content black-text">
           <span class="card-title center" style="margin: 0; padding: 0%;">Crowd Level</span>
           <div id="crowd_indicator" class="center"></div>
@@ -63,7 +69,13 @@
       <div class="row">
         <div class="col s12">
           <div class="card white">
+            <div class="col s1 right tooltipped" data-position="left" data-tooltip="Crowd Level is shown for this Date and Time. Change these values to see the Crowd Level of different times.">
+              <a>
+                <i class="material-icons col s1 right">info_outline</i>
+              </a>
+            </div>
             <div class="card-content black-text">
+
               <div class="center">
                 <!-- Date -->
                 <input id="date_picker" type="text" class="datepicker col s5" style="width: 40%">
@@ -88,6 +100,12 @@
         <div class="col s12">
 
           <div id="checkin_content" class="card white">
+
+            <div class="col s1 right tooltipped" data-position="left" data-tooltip="Check In to the Rec Center once you have arrived. Select a Location, Party Size and Duration. Doing this will help other users of the app get a better idea of the crowd. No personal data is needed/used.">
+              <a>
+                <i class="material-icons col s1 right">info_outline</i>
+              </a>
+            </div>
             <!-- Check In -->
             <div class="card-content black-text" style="padding-top: 1%; padding-bottom: 1%">
               <!-- Location -->
@@ -166,6 +184,13 @@
           </div> <!-- Check In Content End -->
 
           <div id="checkout_content" class="card white">
+
+            <div class="col s1 right tooltipped" data-position="left" data-tooltip="You will be checked out automatically. However, if you leave early, you can check out earlier as well by pressing the Check Out Now button.">
+              <a>
+                <i class="material-icons col s1 right">info_outline</i>
+              </a>
+            </div>
+
             <div class="card-content black-text" style="padding-top: 1%; padding-bottom: 1%">
               <!-- Checkout  -->
               <span class="card-title center" style="font-size: 1.5em; margin: 0; padding: 0%;">You Have Checked
