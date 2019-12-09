@@ -55,6 +55,7 @@ function initializePickers() {
   var date = new Date();
   $('.datepicker').datepicker({
     showClearBtn: true,
+    minDate: new Date(),
     format: "ddd mmm dd yyyy",
     onClose: function () {
       if ($("#date_picker").val() == "") {
