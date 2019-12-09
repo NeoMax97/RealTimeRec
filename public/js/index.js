@@ -107,7 +107,7 @@ function initializeSliders() {
   let partySliderValueElement = document.getElementById('party_slider_value');
 
   party_slider.noUiSlider.on('update', function (values, handle) {
-    partySliderValueElement.innerText = values[handle];
+    partySliderValueElement.innerText = values[handle] + (values[handle] == 1 ? " person" : " people");
   });
 
   let duration_slider = document.getElementById('duration_slider');
@@ -120,7 +120,7 @@ function initializeSliders() {
     orientation: 'horizontal', // 'horizontal' or 'vertical'
     range: {
       'min': 1,
-      'max': 10
+      'max': 5
     },
     // Number Formatting
     format: wNumb({
@@ -135,7 +135,7 @@ function initializeSliders() {
   let durationSliderValueElement = document.getElementById('duration_slider_value');
 
   duration_slider.noUiSlider.on('update', function (values, handle) {
-    durationSliderValueElement.innerText = values[handle];
+    durationSliderValueElement.innerText = values[handle] + (values[handle] == 1 ? " hour" : " hours");
   });
 }
 
@@ -160,8 +160,8 @@ function check_in(id) {
   var gym_card = document.getElementById("gym_card");
 
   if (courts_card.classList.contains("red")) {
-    let duration = $('#duration_slider').text();
-    let partySize = $('#party_slider').text();
+    let duration = $('#duration_slider').text().split(" ")[0];
+    let partySize = $('#party_slider').text().split(" ")[0];
 
     areas.push('courts');
 
@@ -180,8 +180,8 @@ function check_in(id) {
   }
   if (track_card.classList.contains("red")) {
 
-    let duration = $('#duration_slider').text();
-    let partySize = $('#party_slider').text();
+    let duration = $('#duration_slider').text().split(" ")[0];
+    let partySize = $('#party_slider').text().split(" ")[0];
 
     areas.push('track');
 
@@ -200,8 +200,8 @@ function check_in(id) {
   }
   if (gym_card.classList.contains("red")) {
 
-    let duration = $('#duration_slider').text();
-    let partySize = $('#party_slider').text();
+    let duration = $('#duration_slider').text().split(" ")[0];
+    let partySize = $('#party_slider').text().split(" ")[0];
 
     areas.push('gym');
 
