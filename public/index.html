@@ -4,6 +4,7 @@
 <head>
   <!-- Required meta tags -->
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>RealTimeRec</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="js/index.js"></script>
@@ -23,15 +24,15 @@
   <link rel="stylesheet" href="css/libs/nouislider.css" />
 </head>
 
-<body style="width: 100%; height: 100%; overflow: hidden">
+<body>
 
   <!-- Title Bar -->
   <nav>
     <div class="nav-wrapper red darken-4 row">
       <div class="col s2"><img src="assets/logo_simple.png" class="brand-logo left" height="100%"></div>
       <span class="col s8 center nav-title">RealTimeRec</span>
-      <ul id="nav-mobile" class="right">
-        <!-- <li><a id="tut" ><i class="material-icons col s2">info_outline</i></a></li> -->
+      <ul id="nav-mobile" class="right col s2">
+        <li><a href="#" style="padding: 0 10px;"><i class="material-icons">info_outline</i></a></li>
       </ul>
     </div>
   </nav>
@@ -59,7 +60,7 @@
   <!-- Bottom Tabs -->
   <div class="row">
     <div class="col s12">
-      <ul class="tabs">
+      <ul class="tabs" style="overflow: hidden">
         <li class="tab col s6"><a href="#tab1">Crowd</a></li>
         <li class="tab col s6"><a href="#tab2" class="active">Check In/Out</a></li>
       </ul>
