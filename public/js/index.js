@@ -71,13 +71,13 @@ function initializePickers() {
     onCloseStart: function () {
       if ($("#time_picker").val() == "") {
         date = new Date();
-        $("#time_picker").val(((date.getHours() % 12) + ":" + date.getMinutes() + " " + (date.getHours() > 12 ? "PM" : "AM")));
+        $("#time_picker").val(((date.getHours() % 12) + ":" + ("0" + date.getMinutes()).slice(-2) + " " + (date.getHours() > 12 ? "PM" : "AM")));
       }
 
     }
   });
-  $('.timepicker').attr("placeholder", (((date.getHours() % 12) + ":" + date.getMinutes() + " " + (date.getHours() > 12 ? "PM" : "AM"))));
-  $("#time_picker").val(((date.getHours() % 12) + ":" + date.getMinutes() + " " + (date.getHours() > 12 ? "PM" : "AM")));
+  $('.timepicker').attr("placeholder", (((date.getHours() % 12) + ":" + ("0" + date.getMinutes()).slice(-2) + " " + (date.getHours() > 12 ? "PM" : "AM"))));
+  $("#time_picker").val(((date.getHours() % 12) + ":" + ("0" + date.getMinutes()).slice(-2) + " " + (date.getHours() > 12 ? "PM" : "AM")));
 
 }
 
