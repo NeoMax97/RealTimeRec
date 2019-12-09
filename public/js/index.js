@@ -83,7 +83,7 @@ function initializePickers() {
 
 function initializeSliders() {
   let party_slider = document.getElementById('party_slider');
-  
+
   noUiSlider.create(party_slider, {
     start: [1],
     tooltips: true,
@@ -199,7 +199,7 @@ function check_in(id) {
     selectCard("track_card");
   }
   if (gym_card.classList.contains("red")) {
-    
+
     let duration = $('#duration_slider').text();
     let partySize = $('#party_slider').text();
 
@@ -218,7 +218,7 @@ function check_in(id) {
     // Reset to White
     selectCard("gym_card");
   }
-  
+
   checkin_checkout(id);
   checkout_timer();
 }
@@ -252,7 +252,7 @@ function checkin_checkout(id) {
         console.log("ERROR contacting server!");
       });
     }
-    
+
     clearInterval(checkout_func);
   }
 }
@@ -302,6 +302,18 @@ function updateAreaCards() {
   }).fail(function (jqXHR) {
     console.log("ERROR contacting server!");
   })
+}
+
+function confirm_location(){
+  var courts_card = document.getElementById("courts_card");
+  var track_card = document.getElementById("track_card");
+  var gym_card = document.getElementById("gym_card");
+
+  if (courts_card.classList.contains("blue-grey") && courts_card.classList.contains("blue-grey") && courts_card.classList.contains("blue-grey")){
+    alert("Please select at least one location. Thank You!");
+  }else{
+    check_in("submit");
+  }
 }
 
 //Once the DOM is loaded
