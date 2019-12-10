@@ -1,45 +1,33 @@
-//Sets the date picker to today's date and the time picker to right now
-function setDateandTime() {
-  let date = new Date();
+var crowdInd;
+var checkout_time;
+var checkout_func;
+var areas = [];
 
-  let day = date.getDate();
-
-  let month = date.getMonth() + 1;    //+1 because 0-Jan, 1-Feb, 2-Mar,etc.
-  let year = date.getFullYear();
-  let hour = date.getHours();
-  let min = date.getMinutes();
-
-  //Formatting to appease the date input and time input standards
-  month = (month < 10 ? "0" : "") + month;
-  day = (day < 10 ? "0" : "") + day;
-  hour = (hour < 10 ? "0" : "") + hour;
-  min = (min < 10 ? "0" : "") + min;
-
-  let today = year + "-" + month + "-" + day;
-  let displayTime = hour + ":" + min;
-
-  //Updating the HTML
-  $('#datePicker').val(today);
-  $('#timePicker').val(displayTime);
+function showIndicator() {
+  var crowdIndicator = radialIndicator("#crowd_indicator", {
+    barColor: '#b71c1c',
+    barWidth: 5,
+    minValue: 0,
+    maxValue: 3000
+  });
+  crowdInd = crowdIndicator;
 }
 
-//Updates the displayed Rec Center population based on the Date and Time selected by getting data from that date and time from the database
-function getNumber() {
+function updateIndicator() {
+  let date = new Date($('#date_picker').val())
+
   //Extracts the time from the timePicker
-  let time = $('#timePicker').val();
+  let time = $('#time_picker').val();
   let hours = parseInt(time.substring(0, 2));
   let minutes = parseInt(time.substring(3));
 
   if (minutes >= 30) {
     hours += 1;
   }
-
   //Since there is no data from 1am to 4am, default to the latest available time (00:00)
   if (hours > 0 && hours < 5) {
     hours = 0;
   }
-
-  let date = new Date($('#datePicker').val())
 
   //ready the payload for HTTP Request
   let payload = { day: date.getUTCDay(), time: hours };
@@ -50,115 +38,310 @@ function getNumber() {
     url: '/api/getCrowd',
     data: payload
   }).done(function (data) {
-    //Update the HTML
-    $('#population').html(data.population);
+    // $('#population').html(data.population);
+    crowdInd.animate(data.population);
   }).fail(function (jqXHR) {
     console.log("ERROR contacting server!");
+  })
+}
+
+function initializeTabs() {
+  $(".tabs").tabs();
+  // document.getElementById("checkout_content").style.display = "none";
+  document.getElementById("checkout_content").classList.add("hide");
+}
+
+function initializePickers() {
+  var date = new Date();
+  $('.datepicker').datepicker({
+    showClearBtn: true,
+    minDate: new Date(),
+    format: "ddd mmm dd yyyy",
+    onClose: function () {
+      if ($("#date_picker").val() == "") {
+        date = new Date();
+        $("#date_picker").val(date.toDateString());
+      }
+    }
+  });
+
+  $('.datepicker').attr("placeholder", date.toDateString());
+  $("#date_picker").val(date.toDateString());
+  $('.timepicker').timepicker({
+    showClearBtn: true,
+    onCloseStart: function () {
+      if ($("#time_picker").val() == "") {
+        date = new Date();
+        $("#time_picker").val(((date.getHours() % 12) + ":" + ("0" + date.getMinutes()).slice(-2) + " " + (date.getHours() > 12 ? "PM" : "AM")));
+      }
+
+    }
+  });
+  $('.timepicker').attr("placeholder", (((date.getHours() % 12) + ":" + ("0" + date.getMinutes()).slice(-2) + " " + (date.getHours() > 12 ? "PM" : "AM"))));
+  $("#time_picker").val(((date.getHours() % 12) + ":" + ("0" + date.getMinutes()).slice(-2) + " " + (date.getHours() > 12 ? "PM" : "AM")));
+
+}
+
+function initializeSliders() {
+  let party_slider = document.getElementById('party_slider');
+
+  noUiSlider.create(party_slider, {
+    start: [1],
+    tooltips: true,
+    connect: 'lower',
+    step: 1,
+    behaviour: "tap-drag",
+    orientation: 'horizontal', // 'horizontal' or 'vertical'
+    range: {
+      'min': 1,
+      'max': 10
+    },
+    // Number Formatting
+    format: wNumb({
+      decimals: 0,
+      // fix for 4 returning as 3.99999
+      // and 7 returning as 6.99999
+      encoder: function (value) {
+        return Math.round(value);
+      }
+    }) // end of format
+  });
+  let partySliderValueElement = document.getElementById('party_slider_value');
+
+  party_slider.noUiSlider.on('update', function (values, handle) {
+    partySliderValueElement.innerText = values[handle] + (values[handle] == 1 ? " person" : " people");
+  });
+
+  let duration_slider = document.getElementById('duration_slider');
+
+  noUiSlider.create(duration_slider, {
+    start: [1],
+    tooltips: true,
+    connect: 'lower',
+    step: 1,
+    behaviour: "tap-drag",
+    orientation: 'horizontal', // 'horizontal' or 'vertical'
+    range: {
+      'min': 1,
+      'max': 5
+    },
+    // Number Formatting
+    format: wNumb({
+      decimals: 0,
+      // fix for 4 returning as 3.99999
+      // and 7 returning as 6.99999
+      encoder: function (value) {
+        return Math.round(value);
+      }
+    }) // end of format
+  });
+  let durationSliderValueElement = document.getElementById('duration_slider_value');
+
+  duration_slider.noUiSlider.on('update', function (values, handle) {
+    durationSliderValueElement.innerText = values[handle] + (values[handle] == 1 ? " hour" : " hours");
   });
 }
 
-// popPartySize populates the #div_party_size div with radiobuttons
-function popPartySize() {
-  var i;
-  var div_party = document.getElementById("div_party_size");
-  for (i = 1; i < 10; i++) {
-    // Create a radio button and append to #div_party_size
-    var radioB = document.createElement("input");
-    radioB.type = "radio";
-    radioB.id = i.toString();
-    radioB.name = "radioParty";
-    radioB.value = i;
-    radioB.innerText = i;
-    div_party.appendChild(radioB);
-    // Create a label and append to #div_party_size
-    var label = document.createElement("label");
-    label.innerText = i.toString();
-    div_party.appendChild(label);
-  }
-  // Create a radio button and append to #div_party_size
-  var radioB = document.createElement("input");
-  radioB.type = "radio";
-  radioB.id = (i - 1).toString() + "+";
-  radioB.name = "radioParty";
-  radioB.value = i;
-  radioB.innerText = (i - 1) + "+";
-  div_party.appendChild(radioB);
-  // Create a label and append to #div_party_size
-  var label = document.createElement("label");
-  label.innerText = (i - 1).toString() + "+";
-  div_party.appendChild(label);
-}
-
-
-// showSports hides/shows a div showing the sports that occur in the Courts
-function showSports(elem) {
-  var div_courts = document.getElementById("div_courts");
-  var element = document.getElementById(elem);
-  if (element.checked == true) {
-    div_courts.style.display = "inline";
+function selectCard(id) {
+  var card = document.getElementById(id);
+  if (card.classList.contains("blue-grey")) {
+    card.classList.remove("blue-grey");
+    card.classList.remove("lighten-5");
+    card.classList.add("red");
+    card.classList.add("lighten-4");
   } else {
-    div_courts.style.display = "none";
+    card.classList.remove("red");
+    card.classList.remove("lighten-4");
+    card.classList.add("blue-grey");
+    card.classList.add("lighten-5");
   }
 }
 
+function check_in(id) {
+  var courts_card = document.getElementById("courts_card");
+  var track_card = document.getElementById("track_card");
+  var gym_card = document.getElementById("gym_card");
 
-//Sign in to RealTimeRec
-function signIn() {
-  //Temp data. Will be replaced by user input in the future
-  let time = new Date();
-  let duration = 5000;
-  let numGuests = 5;
+  if (courts_card.classList.contains("red")) {
+    let duration = $('#duration_slider').text().split(" ")[0];
+    let partySize = $('#party_slider').text().split(" ")[0];
 
-  let payload = {duration: duration, numGuests: numGuests };
+    areas.push('courts');
 
-  //Deploy payload
+    // Update value in db
+    $.ajax({
+      type: 'PUT',
+      url: '/api/updateAreaCrowd',
+      data: {name: 'courts', duration: duration, partySize: partySize}
+    }).done(function (data) {
+    }).fail(function (jqXHR) {
+      console.log("ERROR contacting server!");
+    });
+
+    // Reset to White
+    selectCard("courts_card");
+  }
+  if (track_card.classList.contains("red")) {
+
+    let duration = $('#duration_slider').text().split(" ")[0];
+    let partySize = $('#party_slider').text().split(" ")[0];
+
+    areas.push('track');
+
+    // Update value in db
+    $.ajax({
+      type: 'PUT',
+      url: '/api/updateAreaCrowd',
+      data: {name: 'track', duration: duration, partySize: partySize}
+    }).done(function (data) {
+    }).fail(function (jqXHR) {
+      console.log("ERROR contacting server!");
+    });
+
+    // Reset to White
+    selectCard("track_card");
+  }
+  if (gym_card.classList.contains("red")) {
+
+    let duration = $('#duration_slider').text().split(" ")[0];
+    let partySize = $('#party_slider').text().split(" ")[0];
+
+    areas.push('gym');
+
+    // Update value in db
+    $.ajax({
+      type: 'PUT',
+      url: '/api/updateAreaCrowd',
+      data: {name: 'gym', duration: duration, partySize: partySize}
+    }).done(function (data) {
+    }).fail(function (jqXHR) {
+      console.log("ERROR contacting server!");
+    });
+
+    // Reset to White
+    selectCard("gym_card");
+  }
+
+  checkin_checkout(id);
+  checkout_timer();
+}
+
+function checkin_checkout(id) {
+  if (id == "submit") {
+    document.getElementById("checkin_content").classList.add("hide");
+    document.getElementById("checkout_content").classList.remove("hide");
+  }
+  else if (id == "checkout_man_card") {
+    document.getElementById("checkin_content").classList.remove("hide");
+    document.getElementById("checkout_content").classList.add("hide");
+    document.getElementById("checkout_auto").classList.remove("hide");
+    document.getElementById("checkout_timer_container").classList.add("hide");
+
+    let partySize = $('#party_slider').text();
+
+    let remaining_duration = $('#durationTimer').text();
+    let remaining_hours = parseInt(remaining_duration.split(' ')[7].split(':')[0]);
+    let remaining_minutes = parseInt(remaining_duration.split(' ')[7].split(':')[1]);
+
+    let milliseconds = remaining_hours * 60 * 60 * 1000 + remaining_minutes * 60 * 1000;
+
+    for(let i = 0; i < areas.length; i++){
+      $.ajax({
+        type: 'PUT',
+        url: '/api/checkOut',
+        data: {name: areas, milliseconds: milliseconds, partySize: partySize}
+      }).done(function (data) {
+      }).fail(function (jqXHR) {
+        console.log("ERROR contacting server!");
+      });
+    }
+
+    clearInterval(checkout_func);
+  }
+}
+
+function checkout_timer() {
+  var duration = parseInt($('#duration_slider').text());
+  document.getElementById("checkout_auto").classList.add("hide");
+  document.getElementById("checkout_timer_container").classList.remove("hide");
+  // var curr_time = new Date();
+  // var checkout_text = ((curr_time.getHours() + duration) % 24).toString() + ":" + curr_time.getMinutes().toString();
+  checkout_time = duration * 60;
+  update_timer(checkout_time);
+  checkout_func = setInterval(update_timer, 60000);
+
+}
+
+function update_timer(){
+  mins = checkout_time;
+  if (mins > 0){
+    var checkout_text = (Math.floor(mins/60)) + ":" + ((mins % 60) < 10 ? ("0" + (mins % 60)) : (mins % 60)); // (mins % 60);
+    // date.getHours() > 12 ? "PM":"AM"
+    $('#durationTimer').html(`You will be automatically signed out in <br> ${checkout_text} hour(s)`);
+    checkout_time -= 1;
+  }else{
+    clearInterval(checkout_func);
+  }
+}
+
+function updateAreaCards() {
   $.ajax({
-    type: 'PUT',
-    url: '/api/signIn',
-    data: payload
+    type: 'GET',
+    url: '/api/getAreaCrowds'
   }).done(function (data) {
-    //saves info for toggling the checkin section
-    localStorage.setItem('time', time);
-    localStorage.setItem('duration', duration);
+    let areas = data.areas;
 
-    toggleSignIn();
-    getNumber();
+    for(let i = 0; i < areas.length; i++){
+      if(areas[i].name == 'courts'){
+        $('#courts_val').html(`${areas[i].population} people`);
+      }
+      else if(areas[i].name == 'track'){
+        $('#track_val').html(`${areas[i].population} people`);
+      }
+      else if(areas[i].name == 'gym'){
+        $('#gym_val').html(`${areas[i].population} people`);
+      }
+    }
   }).fail(function (jqXHR) {
     console.log("ERROR contacting server!");
-  });
+  })
 }
 
-function toggleSignIn() {
-  let duration = localStorage.getItem('duration');
-  let oldTime = new Date(localStorage.getItem('time'));
+function confirm_location(){
+  var courts_card = document.getElementById("courts_card");
+  var track_card = document.getElementById("track_card");
+  var gym_card = document.getElementById("gym_card");
 
-  //If the localstorage exists
-  if (oldTime != null && duration != null) {
-    let currTime = new Date();
-    oldTime.setHours(oldTime.getHours() + duration);
-
-    //If you are still 'signed in'
-    if (oldTime > currTime) {
-      $('#checkIn').hide();
-      $('#check_in').html('You are signed in');
-    }
-    //If your duration has expired
-    else{
-      $('#checkIn').show();
-      $('#check_in').html('Check In: ');
-    }
+  if (courts_card.classList.contains("blue-grey") && track_card.classList.contains("blue-grey") && gym_card.classList.contains("blue-grey")){
+    alert("Please select at least one location. Thank You!");
+  }else{
+    check_in("submit");
   }
+}
+
+function setup_feature_discovery_points(){
+  // tutorial.classList.add("tap-target");
+
+  $(".tooltipped").tooltip();
+}
+
+function showFD(id){
+  var instance = M.TapTarget.getInstance($(id)).open();
+  // var instance = M.TapTarget.getInstance(document.getElementById(id)).open();
 }
 
 //Once the DOM is loaded
 $().ready(function () {
   //Run these functions
-  setDateandTime();
-  getNumber();
-  popPartySize();
-  toggleSignIn();
+  showIndicator();
+  initializeTabs();
+  initializePickers();
+  initializeSliders();
+  updateIndicator();
+  updateAreaCards();
+
+  setup_feature_discovery_points();
 
   //Add event listeners
-  $('#refresh').click(getNumber);
-  $('#signIn').click(signIn);
+  $("#refresh").click(updateIndicator);
 })

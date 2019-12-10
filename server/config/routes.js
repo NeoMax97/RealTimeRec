@@ -1,8 +1,10 @@
 const dayHandler = require('../days/dayHandler.js');
-const populationHandler = require('../areas/areaHandler.js');
+const areaHandler = require('../areas/areaHandler.js');
 
 //Add/export api routes
 module.exports = function(app, express){
     app.get('/api/getCrowd', dayHandler.getCrowd);
-    app.put('/api/signIn', populationHandler.signIn);
+    app.get('/api/getAreaCrowds', areaHandler.getAreaCrowds);
+    app.put('/api/updateAreaCrowd', areaHandler.updateAreaCrowd);
+    app.put('/api/checkOut', areaHandler.checkOut);
 };

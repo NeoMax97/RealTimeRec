@@ -4,58 +4,261 @@
 <head>
   <!-- Required meta tags -->
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>RealTimeRec</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="js/index.js"></script>
+  <!-- MaterialCSS -->
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- RadialIndicator.js -->
+  <script src="js/libs/radialIndicator.js"></script>
+  <!-- noUISlider (Materialize version) -->
+  <!-- JS -->
+  <script src="js/libs/nouislider.js"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/libs/nouislider.css" />
 </head>
 
-<body>
-  <header>
-    <h1>RealTimeRec</h1>
-  </header>
-  <label for="datePicker">Choose a date:</label>
-  <input type="date" id="datePicker">
-  <label for="timePicker">Choose a time:</label>
-  <input type="time" id="timePicker">
-  <button id="refresh">Refresh</button>
-  <br>
-  <label for="population">Number of people at the Rec Center:</label>
-  <label id="population"></label>
+<body bgcolor="#DFE8EC">
 
-  <br />
-  <br />
+  <!-- Title Bar -->
+  <nav>
+    <div class="nav-wrapper red darken-4 row">
 
-  <!-- ******** Check In Section ********-->
-  <label id="check_in">Check In: </label>
-  <div id="checkIn">
-    <form id="myForm">
-      
-      <br />
-      <br />
-      <label id="party_size">Party Size</label>
-      <div id="div_party_size">
-        <!-- This part is filled out by popPartySize in index.js -->
+      <div class="col s1 m1 l1 ">
+        <img src="assets/logo_simple.png" class="brand-logo left col offset-m1 offset-l2" height="100%">
       </div>
-      <br />
-      <!-- This div contains checkboxes for users to pick a location -->
-      <label>Location(s):</label>
-      <input type="checkbox" id="cb_Courts" onclick="showSports(this.id)">Courts</input>
-      <input type="checkbox" id="cb_Track">Jogging/Walking Track</input>
-      <input type="checkbox" id="cb_fitness">Fitness & Weights</input>
-      <br />
 
-      <!--This div is hidden by default.
-        Will be visible if user selects Courts above. -->
-      <div id="div_courts" style="display: none">
-        <label>Sport(s): </label>
-        <input type="checkbox" id="cb_Courts_bball">Basketball</input>
-        <input type="checkbox" id="cb_Courts_badminton">Badminton</input>
-        <input type="checkbox" id="cb_Courts_volley">Volleyball</input>
+      <span class="col s10 m8 l6 offset-m1 offset-l2 center nav-title">RealTimeRec</span>
+      <ul id="nav-mobile" class="col s1 m1 l1 " >
+        <li class="right " >
+          <a href="#" style="padding: 0 0px;"><i class="material-icons right tooltipped" data-position="left"
+            data-tooltip="Welcome to RealTimeRec. We show you the crowd at the Rec Center at different dates and times, as per your choosing.
+            <br /> Our aim is to help you plan your visits by giving you crowd data.
+            <br /> You can even Check In to different places in the Rec Center, helping other users get better crowd data.
+            <br /> No Personal Data is collected whatsoever.">info_outline</i></a>
+      </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Card displaying Crowd Level -->
+  <div class="row">
+    <div class="col s12 m10 l8 offset-m1 offset-l2 ">
+      <div class="card white">
+          <div class="col s1 right " >
+            <a>
+              <i class="material-icons col s1 right tooltipped" data-position="left"
+              data-tooltip="This section shows you the Crowd Level at the Rec Center">info_outline</i>
+            </a>
+          </div>
+
+        <div id="crowd_indicator_container" class="card-content black-text">
+          <span class="card-title center" style="margin: 0; padding: 0%;">Crowd Level</span>
+          <div id="crowd_indicator" class="center"></div>
+        </div>
       </div>
-      <br />
-      <button type="button" id="signIn">Sign In</button>
-    </form>
+    </div>
   </div>
-</body>
 
-</html>
+  <div class="divider"></div>
+
+  <!-- Bottom Tabs -->
+  <div class="row">
+    <div class="col s12 m10 l8 offset-m1 offset-l2">
+      <ul class="tabs" style="overflow: hidden">
+        <li class="tab col s6"><a href="#tab1" class="active">Crowd</a></li>
+        <li class="tab col s6"><a href="#tab2">Check In/Out</a></li>
+      </ul>
+    </div>
+    <!-- Content for Crowd tab -->
+    <div id="tab1" class="col s12 m10 l8 offset-m1 offset-l2">
+      <div class="row">
+        <div class="col s12">
+          <div class="card white">
+            <div class="col s1 right " >
+              <a>
+                <i class="material-icons col s1 right tooltipped" data-position="left"
+                data-tooltip="Crowd Level is shown for this Date and Time.
+                <br /> Change these values to see the Crowd Level of different times.">info_outline</i>
+              </a>
+            </div>
+
+
+            <div class="card-content black-text">
+
+              <div class="card-title col s12">
+                <span class="col s5 center-align">Date</span>
+                <span class="col s2 center-align"></span>
+                <span class="col s5 center-align">Time</span>
+              </div>
+
+              <div class="center">
+                <!-- Date -->
+                <input id="date_picker" type="text" class="datepicker col s5" style="width: 40%">
+                <!-- Time -->
+                <input id="time_picker" type="text" class="timepicker right col s5" style="width: 40%"
+                  placeholder="Time">
+              </div>
+              <div class="center">
+                <!-- Update -->
+                <a href="#" id="refresh"><i class="medium material-icons">update</i></a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content for Check In tab -->
+    <div id="tab2" class="col s12">
+      <div class="row">
+        <div class="col s12 m10 l8 offset-m1 offset-l2">
+
+          <div id="checkin_content" class="card white">
+
+            <div class="col s1 right" >
+              <a>
+                <i class="material-icons col s1 right tooltipped" data-position="left"
+                data-tooltip="Check In to the Rec Center once you have arrived.
+                <br /> Select a Location, Party Size and Duration.
+                <br /> Doing this will help other users of the app get a better idea of the crowd.
+                <br /> You can Check In to multiple places at once. ">info_outline</i>
+              </a>
+            </div>
+            <!-- Check In -->
+            <div class="card-content black-text" style="padding-top: 1%; padding-bottom: 1%">
+              <!-- Location -->
+              <span class="card-title center col s10 push-s1" style="font-size: 1.5em; margin: 0; padding: 0%;">Location</span>
+              <!-- Location Content -->
+              <div class="row">
+                <!-- Courts -->
+                <div class="col s4">
+                  <div id="courts_card" class="card blue-grey lighten-5" onclick="selectCard(this.id)">
+                    <span class="card-title center" style="font-size: 1.25em">Courts</span>
+                    <p id="courts_val" class="center-align"></p>
+                  </div>
+                </div>
+                <!-- Walking/Jogging Track -->
+                <div class="col s4">
+                  <div id="track_card" class="card blue-grey lighten-5" onclick="selectCard(this.id)">
+                    <span class="card-title center" style="font-size: 1.25em">Track</span>
+                    <p id="track_val" class="center-align"></p>
+                    <p class="center" id="courts_crowd"></p>
+                  </div>
+                </div>
+
+                <!-- Fitness and Weights -->
+                <div class="col s4">
+                  <div id="gym_card" class="card blue-grey lighten-5" onclick="selectCard(this.id)">
+                    <span class="card-title center" style="font-size: 1.25em">Gym</span>
+                    <p id="gym_val" class="center-align"></p>
+                    <p class="center" id="courts_crowd"></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Party Size -->
+              <span class="card-title center" style="font-size: 1.5em; margin: 0; padding: 0%;">Party Size</span>
+              <!-- Party Size Content -->
+              <div class="row">
+                <!-- Slider Stuff -->
+                <div class="col s12">
+                  <div class="card blue-grey lighten-5">
+                    <br />
+                    <!-- Slider -->
+                    <div class="col s12">
+                      <div id="party_slider"></div> <!-- class changed slider settings -->
+                    </div>
+                    <br />
+                    <p id="party_slider_value" class="center">
+                    </p>
+
+                  </div> <!-- card blue-grey lighten -5 -->
+                </div> <!-- col s12-->
+
+              </div> <!-- card-content black-text -->
+              <!-- Duration -->
+              <span class="card-title center" style="font-size: 1.5em; margin: 0; padding: 0%;">Duration of Visit</span>
+              <!-- Duration Content -->
+              <div class="row">
+                <!-- Slider Stuff -->
+                <div class="col s12">
+                  <div class="card blue-grey lighten-5">
+                    <br />
+                    <!-- Slider -->
+                    <div class="col s12">
+                      <div id="duration_slider"></div> <!-- class changed slider settings -->
+                    </div>
+                    <br />
+                    <p id="duration_slider_value" class="center">
+                    </p>
+
+                  </div> <!-- card blue-grey lighten -5 -->
+                  <div class="center">
+                    <a id="submit" onclick="confirm_location()"><i class="material-icons">check</i></a>
+                  </div>
+                </div> <!-- col s12-->
+              </div> <!-- row -->
+            </div> <!-- card-content black-text -->
+          </div> <!-- Check In Content End -->
+
+          <div id="checkout_content" class="card white">
+
+            <div class="col s1 right " >
+              <a>
+                <i class="material-icons col s1 right tooltipped" data-position="left"
+                data-tooltip="You will be checked out automatically.
+                <br /> However, if you leave early, you can check out earlier as well by pressing the Check Out Now button.">info_outline</i>
+              </a>
+            </div>
+
+            <div class="card-content black-text" style="padding-top: 1%; padding-bottom: 1%">
+              <!-- Checkout  -->
+              <span class="card-title center col s10 push-s1" style="font-size: 1.5em; margin: 0; padding: 0%;">You Have Checked
+                In!</span>
+              <span id="durationTimer" class="card-title center col s10 push-s1"
+                style="font-size: 1.5em; margin: 0; padding: 0%;"></span>
+              <br />
+              <!-- Checkout Content -->
+              <div class="row">
+                <!-- Checkout Auto-->
+                <div id="checkout_auto" class="col s12 center-align">
+                  <div id="checkout_auto_card" class="card blue-grey lighten-5" onclick="checkout_timer()">
+                    <span class="card-title center" style="font-size: 1.25em">Check Out </span>
+                    <p class="center-align">in</p>
+                  </div>
+                  <select id="check_out_dropdown" class="center-align"></select>
+                </div>
+
+                <div id="checkout_timer_container" class="col s12">
+                  <!-- Checkout Manual -->
+                  <div class="col s6 push-s3">
+                    <div id="checkout_man_card" class="card blue-grey lighten-5" onclick="checkin_checkout(this.id)">
+                      <span class="card-title center" style="font-size: 1.25em">Check Out</span>
+                      <p class="center-align">Now</p>
+                    </div>
+                  </div>
+
+                </div> <!-- End of checkout_timer_container -->
+
+
+
+              </div> <!-- row -->
+
+            </div> <!-- card-content black-text -->
+          </div> <!-- card white -->
+          <!-- Check Out Content End -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>

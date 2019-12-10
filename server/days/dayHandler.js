@@ -20,8 +20,6 @@ module.exports = {
             });
             pop /= days.length;
             pop = Math.round(pop);
-
-            //Send a response with that average
             res.status(200).json({population: pop});
           }
       })
