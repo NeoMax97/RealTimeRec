@@ -310,7 +310,7 @@ function confirm_location(){
   var track_card = document.getElementById("track_card");
   var gym_card = document.getElementById("gym_card");
 
-  if (courts_card.classList.contains("blue-grey") && courts_card.classList.contains("blue-grey") && courts_card.classList.contains("blue-grey")){
+  if (courts_card.classList.contains("blue-grey") && track_card.classList.contains("blue-grey") && gym_card.classList.contains("blue-grey")){
     alert("Please select at least one location. Thank You!");
   }else{
     check_in("submit");
