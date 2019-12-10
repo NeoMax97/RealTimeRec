@@ -90,6 +90,7 @@ function initializeSliders() {
     tooltips: true,
     connect: 'lower',
     step: 1,
+    behaviour: "tap-drag",
     orientation: 'horizontal', // 'horizontal' or 'vertical'
     range: {
       'min': 1,
@@ -118,6 +119,7 @@ function initializeSliders() {
     tooltips: true,
     connect: 'lower',
     step: 1,
+    behaviour: "tap-drag",
     orientation: 'horizontal', // 'horizontal' or 'vertical'
     range: {
       'min': 1,
