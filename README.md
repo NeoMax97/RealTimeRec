@@ -1,5 +1,8 @@
 # RealTimeRec
-An application, which tracks the current number of people in the Rec Center, so that users are able to make a more informed decision on whether to go now or go later.
+
+Class Project for CS 325: Human Computer Interaction course at UMass Amherst. Forked from https://github.com/NathanScheele/RealTimeRec.
+
+An application, which tracks the current number of people in the Rec Center at UMass Amherst, so that users are able to make a more informed decision on whether to go now or go later.
 
 Users will be able to do the following:
 - See the current number of people in the Rec Center
