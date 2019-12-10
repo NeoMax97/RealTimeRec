@@ -77,7 +77,6 @@ module.exports = {
           }
           else {
             console.log("Update successful");
-            
             //Decrements the population after the given duration has passed
             setTimeout(function(){
               area.population += parseInt(partySize);
@@ -85,6 +84,7 @@ module.exports = {
             }, milliseconds); //Conversion from hours to milliseconds
 
             res.status(200).send("Update successful")
+
           }
         });
       }

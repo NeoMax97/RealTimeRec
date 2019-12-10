@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//Model for the database, so it knows what its documents should look like
 let DaySchema = new mongoose.Schema({
     day: Number,
     '0': Number,
